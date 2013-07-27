@@ -1,0 +1,4 @@
+sdmxsource-adapter
+==================
+
+SdmxSource Encapsulation
