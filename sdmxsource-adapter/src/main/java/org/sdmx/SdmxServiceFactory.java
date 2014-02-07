@@ -2,7 +2,7 @@ package org.sdmx;
 
 import javax.inject.Inject;
 
-import org.sdmxsource.sdmx.api.manager.output.StructureWritingManager;
+import org.sdmxsource.sdmx.api.manager.output.StructureWriterManager;
 import org.sdmxsource.sdmx.api.manager.parse.StructureParsingManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,6 +26,8 @@ public class SdmxServiceFactory {
 
 	// single instance injected by Spring via programmatic contanier configuration
 	private static SdmxServiceFactory instance;
+	
+	private static ClassPathXmlApplicationContext ctx;
 
 	// upon first access to this factory, Spring is configured programmatically
 	static {
@@ -34,7 +36,7 @@ public class SdmxServiceFactory {
 
 	public static void init() {
 
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/sdmxsource-config.xml");
+		ctx = new ClassPathXmlApplicationContext("/sdmxsource-config.xml");
 
 		// fetch singleton instance of this factory
 		instance = ctx.getBean(SdmxServiceFactory.class);
@@ -48,7 +50,7 @@ public class SdmxServiceFactory {
 	StructureParsingManager parser;
 
 	@Inject
-	StructureWritingManager writer;
+	StructureWriterManager writer;
 
 	// add more services if and when needed...
 
@@ -68,7 +70,14 @@ public class SdmxServiceFactory {
 	 * 
 	 * @return the service
 	 */
-	public static StructureWritingManager writer() {
+	public static StructureWriterManager writer() {
 		return instance.writer;
+	}
+	
+	
+	public static void close() {
+		
+		ctx.close();
+		
 	}
 }
