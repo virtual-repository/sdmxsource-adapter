@@ -18,5 +18,6 @@
 	<bean class="org.sdmx.SdmxServiceFactory" />
 
 	<bean class="org.sdmxsource.util.factory.SdmxSourceReadableDataLocationFactory" />
+	<bean class="org.sdmxsource.util.factory.SdmxSourceWriteableDataLocationFactory" />
 	
 </beans>
